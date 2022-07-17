@@ -23,7 +23,7 @@ service.interceptors.request.use(
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
       if(IsCheckTimeOut()){
-        store.dispatch('user/logout', payload)
+        store.dispatch('user/logout')
 
         router.push('/login')
         return Promise.reject(new Error('token超时'))
