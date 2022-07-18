@@ -28,39 +28,44 @@
 </template>
 
 <script>
-// 该组件需要对外开放属性 外部需要提供一个对象 对象里需要有name  manager
-import {delDepartments} from '@/api/departments'
+import { delDepartments } from '@/api/departments'
 export default {
-  // props可以用数组来接收数据 也可以用对象来接收
-  // props: {   props属性: {  配置选项 }  }
   props: {
-    //   定义一个props属性
+    // 定义传入的属性
     treeNode: {
-      type: Object, // 对象类型
-      required: true // 要求对方使用您的组件的时候 必须传treeNode属性 如果不传 就会报错
+      required: true,
+      type: Object
     },
-    isRoot:{
-        type:Boolean,
-        default:false
+    isRoot: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
-      operateDepts(type){
-          if(type==='add'){
-              this.$emit('addDepts',this.treeNode)
-
-          }else if(type==='edit'){
-
-          }else{
-              this.$confirm('确定要删除该部门吗？').then(()=>{
-                  return delDepartments(this.treeNode.id)
-              }).then(()=>{
-                  this.$emit('delDepts')
-                  this.$message.success('删除成功')
-
-              })
-          }
+    // 点击 编辑 删除 新增时触发
+    operateDepts(type) {
+      if (type === 'add') {
+      //  添加子部门
+      // 添加子部门 在当前点击的部门下 添加子部门 => this.treeNode就是当前点击的部门
+        this.$emit('addDepts', this.treeNode) // 触发自定义事件 告诉父组件 显示弹层
+      } else if (type === 'edit') {
+        // 编辑部门
+        this.$emit('editDepts', this.treeNode) // 触发自定义事件 点击谁 编辑谁
+      } else {
+        // 删除部门
+        this.$confirm('您确定要删除该组织部门吗').then(() => {
+          return delDepartments(this.treeNode.id)
+        }).then(() => {
+          // 只需要等到成功的时候 调用接口删除了 后端数据变化了 但是前端没变  重新获取
+          this.$emit('delDepts') // 触发自定义事件
+          this.$message.success('删除部门成功')
+        })
       }
-  },
+    }
+  }
 }
 </script>
+
+<style>
+
+</style>
