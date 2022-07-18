@@ -9,7 +9,7 @@ export default{
         path:'',
         component:()=>import('@/views/setting'),
         meta:{
-            title:'员工管理',
+            title:'角色管理',
             icon:'people'
         }
     }
