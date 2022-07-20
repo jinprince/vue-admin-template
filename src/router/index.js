@@ -63,6 +63,25 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
+  {
+    path:'/import',
+    component:Layout,
+    hidden:true,
+    children:[
+      {
+        path:'',
+        component:()=>import('@/views/import')
+      }
+    ]
+  },
+  {
+    path: 'detail/:id', // query传参 动态路由传参
+    component: () => import('@/views/employees/detail'),
+    hidden: true, // 不在左侧菜单显示
+    meta: {
+      title: '员工详情' // 标记当前路由规则的中文名称 后续在做左侧菜单时 使用
+    }
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

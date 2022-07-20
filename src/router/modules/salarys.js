@@ -9,7 +9,7 @@ export default{
         path:'',
         component:()=>import('@/views/salarys'),
         meta:{
-            title:'员工管理',
+            title:'工资',
             icon:'people'
         }
     }

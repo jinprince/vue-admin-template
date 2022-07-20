@@ -9,7 +9,7 @@ export default{
         path:'',
         component:()=>import('@/views/attendances'),
         meta:{
-            title:'审批',
+            title:'考勤',
             icon:'people'
         }
     }
